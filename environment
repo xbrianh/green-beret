@@ -1,12 +1,11 @@
 
-# Resolve the location of this file and set DSS_HOME to the root
+# Resolve the location of this file and set GREEN_BERET_HOME to the root
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
 export GREEN_BERET_HOME="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 
 set -a
-GREEN_BERET_STAGE="dev"
 GREEN_BERET_INSTANCE_ID="i-03880570c12fb62ee"
 GREEN_BERET_SECRET_ID="bhannafi/green-beret/server/private-key"
-GREEN_BERET_ID=${GREEN_BERET_HOME}/keys/private-key-${GREEN_BERET_STAGE}
+GREEN_BERET_ID=${GREEN_BERET_HOME}/keys/private-key-dev
 set +a
