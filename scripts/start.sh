@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [[ -z "${GREEN_BERET_HOME+x}" ]]; then
+    echo 'Please source `environment`'
+	exit 1
+fi
+
+aws ec2 start-instances --instance-ids $GREEN_BERET_INSTANCE_ID
