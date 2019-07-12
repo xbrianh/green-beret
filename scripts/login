@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if [[ -z "${GREEN_BERET_HOME+x}" ]]; then
-    echo 'Please source `environment`'
+    echo 'Please `source environment`'
 	exit 1
 fi
 
