@@ -6,17 +6,22 @@ if [[ -z "${GREEN_BERET_HOME+x}" ]]; then
 	exit 1
 fi
 
+tmp_private_key=$(mktemp)
+function finish {
+  rm -f "${tmp_private_key}"
+}
+trap finish EXIT
+
+aws secretsmanager get-secret-value --secret-id ${GREEN_BERET_SECRET_ID} | jq -r '.SecretString' > ${tmp_private_key}
+chmod go-r ${tmp_private_key}
+
 GREEN_BERET_DNS=$(aws ec2 describe-instances --instance-ids $GREEN_BERET_INSTANCE_ID | jq -r .Reservations[0].Instances[0].PublicDnsName)
 
-if [[ ! -e ${GREEN_BERET_ID} ]]; then
-    key=$(aws secretsmanager get-secret-value --secret-id ${GREEN_BERET_SECRET_ID} || exit 1)
-    echo $key | jq -r .SecretString > ${GREEN_BERET_ID}
-    chmod 400 ${GREEN_BERET_ID}
-fi
+echo $(ls -alh ${tmp_private_key})
 
-if [[ -e ${GREEN_BERET_ID} ]]; then
-    # ssh -i $GREEN_BERET_ID -o "UserKnownHostsFile /dev/null" -o "StrictHostKeyChecking no" -o "LogLevel ERROR" ubuntu@$GREEN_BERET_DNS
-    mosh --ssh="ssh -i $GREEN_BERET_ID -o \"UserKnownHostsFile /dev/null\" -o \"StrictHostKeyChecking no\" -o \"LogLevel ERROR\"" ubuntu@$GREEN_BERET_DNS
+if [[ -e ${tmp_private_key} ]]; then
+    # ssh -i ${tmp_private_key} -o "UserKnownHostsFile /dev/null" -o "StrictHostKeyChecking no" -o "LogLevel ERROR" ubuntu@$GREEN_BERET_DNS
+    mosh --ssh="ssh -i ${tmp_private_key} -o \"UserKnownHostsFile /dev/null\" -o \"StrictHostKeyChecking no\" -o \"LogLevel ERROR\"" ubuntu@$GREEN_BERET_DNS
 else
     echo "Unable to locate identity file"
 fi
