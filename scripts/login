@@ -12,12 +12,10 @@ function finish {
 }
 trap finish EXIT
 
-aws secretsmanager get-secret-value --secret-id ${GREEN_BERET_SECRET_ID} | jq -r '.SecretString' > ${tmp_private_key}
+aws secretsmanager get-secret-value --secret-id ${GREEN_BERET_AWS_KEY_PAIR_SECRET_ID} | jq -r '.SecretString' > ${tmp_private_key}
 chmod go-r ${tmp_private_key}
 
 GREEN_BERET_DNS=$(aws ec2 describe-instances --instance-ids $GREEN_BERET_INSTANCE_ID | jq -r .Reservations[0].Instances[0].PublicDnsName)
-
-echo $(ls -alh ${tmp_private_key})
 
 if [[ -e ${tmp_private_key} ]]; then
     # ssh -i ${tmp_private_key} -o "UserKnownHostsFile /dev/null" -o "StrictHostKeyChecking no" -o "LogLevel ERROR" ubuntu@$GREEN_BERET_DNS
@@ -25,4 +23,3 @@ if [[ -e ${tmp_private_key} ]]; then
 else
     echo "Unable to locate identity file"
 fi
-# aws ec2 describe-instances --instance-ids $GREEN_BERET_INSTANCE_ID | jq .Reservations[0].Instances[0].State

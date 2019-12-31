@@ -1,6 +1,0 @@
-
-set -a
-GREEN_BERET_INSTANCE_ID="i-083ae8d10608e3494"
-GREEN_BERET_SECRET_ID="bhannafi/green-beret-prod/server/private-key"
-GREEN_BERET_ID=${GREEN_BERET_HOME}/keys/private-key-prod
-set +a

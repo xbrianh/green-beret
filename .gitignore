@@ -1,9 +1,10 @@
 #  Local .terraform directories
 **/.terraform/*
 
-# .tfstate files
-*.tfstate
-*.tfstate.*
+# Derived terraform files
+backend.tf
+providers.tf
+variables.tf
 
-# .tfvars files
-*.tfvars
+# vim swap files
+*.swp

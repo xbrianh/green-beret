@@ -4,8 +4,19 @@ SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
 export GREEN_BERET_HOME="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 
+EXPORT_ENV_VARS_TO_TERRAFORM_ARRAY=(
+    AWS_DEFAULT_REGION
+    AI_SERVICE
+    AI_OWNER
+    GREEN_BERET_AWS_KEY_PAIR_NAME
+    GREEN_BERET_AWS_KEY_PAIR_SECRET_ID
+)
+
 set -a
-GREEN_BERET_INSTANCE_ID="i-03880570c12fb62ee"
-GREEN_BERET_SECRET_ID="bhannafi/green-beret/server/private-key"
-GREEN_BERET_ID=${GREEN_BERET_HOME}/keys/private-key-dev
+EXPORT_ENV_VARS_TO_TERRAFORM=${EXPORT_ENV_VARS_TO_TERRAFORM_ARRAY[*]}
+AWS_DEFAULT_REGION="us-east-1"
+AI_SERVICE="green-beret"
+AI_OWNER="brian.hannafious"
+GREEN_BERET_AWS_KEY_PAIR_NAME="xbrianh-green-beret"
+GREEN_BERET_AWS_KEY_PAIR_SECRET_ID="amorphous-industries/xbrianh/green-beret/aws-private-key"
 set +a
