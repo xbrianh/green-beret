@@ -1,13 +1,8 @@
 data "aws_caller_identity" "current" {}
 
 locals {
-  common_tags = "${map(
-    "service"   , "${var.AI_SERVICE}",
-    "owner", "${var.AI_OWNER}"
-  )}"
-  aws_tags = "${map(
-    "Name"      , "${var.AI_SERVICE}",
-  )}"
+  tags = "${jsondecode(var.GREEN_BERET_INFRA_TAGS)}"
+  instance_tags = merge(local.tags, {Name="${var.GREEN_BERET_INSTANCE_NAME}"})
 }
 
 data "aws_ami" "ubuntu" {
@@ -36,7 +31,7 @@ data "aws_vpc" "default" {
 }
 
 resource "aws_security_group" "green-beret" {
-  name   = "${var.AI_SERVICE}"
+  name   = "${var.GREEN_BERET_INSTANCE_NAME}"
   vpc_id = "${data.aws_vpc.default.id}"
   ingress {
     from_port   = 22
@@ -58,7 +53,7 @@ resource "aws_security_group" "green-beret" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags   = merge(local.common_tags, local.aws_tags)
+  tags = local.tags
 }
 
 resource "aws_instance" "green-beret" {
@@ -69,8 +64,8 @@ resource "aws_instance" "green-beret" {
   root_block_device {
     volume_size = 16
   }
-  tags            = merge(local.common_tags, local.aws_tags)
-  volume_tags     = merge(local.common_tags, local.aws_tags)
+  tags            = local.instance_tags
+  volume_tags     = local.instance_tags
 }
 
 resource "null_resource" "server_configuration" {

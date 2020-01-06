@@ -32,7 +32,7 @@ terraform_backend_template = """
 terraform {{
   backend "s3" {{
     bucket = "{bucket}"
-    key = "{service}/{comp}.tfstate"
+    key = "{prefix}/{comp}.tfstate"
     region = "{region}"
     {profile_setting}
   }}
@@ -56,8 +56,8 @@ with open(os.path.join(path, "backend.tf"), "w") as fp:
         profile_setting = ''
     state_bucket = f"terraform-{caller_info['Account']}-{os.environ['AWS_DEFAULT_REGION']}"
     fp.write(terraform_backend_template.format(
-        bucket=state_bucket,
-        service=os.environ['AI_SERVICE'],
+        bucket=os.environ['TERRAFORM_STATE_BUCKET'],
+        prefix=os.environ['TERRAFORM_STATE_PREFIX'],
         comp=component,
         region=os.environ['AWS_DEFAULT_REGION'],
         profile_setting=profile_setting,
@@ -67,7 +67,7 @@ with open(os.path.join(path, "variables.tf"), "w") as fp:
     fp.write("# Auto-generated during terraform build process." + os.linesep)
     fp.write("# Please edit terraform/build_deploy_config.py directly." + os.linesep)
     for key in os.environ['EXPORT_ENV_VARS_TO_TERRAFORM'].split():
-        val = os.environ[key]
+        val = os.environ[key].replace('"', '\\"')
         fp.write(terraform_variable_template.format(name=key, val=val))
 
 with open(os.path.join(path, "providers.tf"), "w") as fp:

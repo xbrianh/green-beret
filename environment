@@ -6,8 +6,8 @@ export GREEN_BERET_HOME="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 
 EXPORT_ENV_VARS_TO_TERRAFORM_ARRAY=(
     AWS_DEFAULT_REGION
-    AI_SERVICE
-    AI_OWNER
+    GREEN_BERET_INSTANCE_NAME
+    GREEN_BERET_INFRA_TAGS
     GREEN_BERET_AWS_KEY_PAIR_NAME
     GREEN_BERET_AWS_KEY_PAIR_SECRET_ID
 )
@@ -15,8 +15,10 @@ EXPORT_ENV_VARS_TO_TERRAFORM_ARRAY=(
 set -a
 EXPORT_ENV_VARS_TO_TERRAFORM=${EXPORT_ENV_VARS_TO_TERRAFORM_ARRAY[*]}
 AWS_DEFAULT_REGION="us-east-1"
-AI_SERVICE="green-beret"
-AI_OWNER="brian.hannafious"
+TERRAFORM_STATE_BUCKET="terraform-907366600011-${AWS_DEFAULT_REGION}"
+TERRAFORM_STATE_PREFIX="green-beret"
 GREEN_BERET_AWS_KEY_PAIR_NAME="xbrianh-green-beret"
 GREEN_BERET_AWS_KEY_PAIR_SECRET_ID="amorphous-industries/xbrianh/green-beret/aws-private-key"
+GREEN_BERET_INSTANCE_NAME="green-beret"
+GREEN_BERET_INFRA_TAGS='{"service": "green-beret", "owner": "brian.hannafious@gmail.com"}'
 set +a
