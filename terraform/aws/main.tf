@@ -1,8 +1,8 @@
 data "aws_caller_identity" "current" {}
 
 locals {
-  tags = "${jsondecode(var.GREEN_BERET_INFRA_TAGS)}"
-  instance_tags = merge(local.tags, {Name="${var.GREEN_BERET_INSTANCE_NAME}"})
+  tags = jsondecode(var.GREEN_BERET_INFRA_TAGS)
+  instance_tags = merge(local.tags, {Name=var.GREEN_BERET_INSTANCE_NAME})
 }
 
 data "aws_ami" "ubuntu" {
@@ -23,7 +23,7 @@ data "aws_ami" "ubuntu" {
 }
 
 data "aws_secretsmanager_secret_version" "private_key" {
-  secret_id = "${var.GREEN_BERET_AWS_KEY_PAIR_SECRET_ID}"
+  secret_id = var.GREEN_BERET_AWS_KEY_PAIR_SECRET_ID
 }
 
 data "aws_vpc" "default" {
@@ -31,8 +31,8 @@ data "aws_vpc" "default" {
 }
 
 resource "aws_security_group" "green-beret" {
-  name   = "${var.GREEN_BERET_INSTANCE_NAME}"
-  vpc_id = "${data.aws_vpc.default.id}"
+  name   = var.GREEN_BERET_INSTANCE_NAME
+  vpc_id = data.aws_vpc.default.id
   ingress {
     from_port   = 22
     to_port     = 22
@@ -57,10 +57,10 @@ resource "aws_security_group" "green-beret" {
 }
 
 resource "aws_instance" "green-beret" {
-  ami             = "${data.aws_ami.ubuntu.id}"
+  ami             = data.aws_ami.ubuntu.id
   instance_type   = "m5.large"
-  key_name        = "${var.GREEN_BERET_AWS_KEY_PAIR_NAME}"
-  security_groups = ["${aws_security_group.green-beret.name}"]
+  key_name        = var.GREEN_BERET_AWS_KEY_PAIR_NAME
+  security_groups = [aws_security_group.green-beret.name]
   root_block_device {
     volume_size = 16
   }
@@ -70,14 +70,14 @@ resource "aws_instance" "green-beret" {
 
 resource "null_resource" "server_configuration" {
   triggers = {
-    instance_id = "${aws_instance.green-beret.id}"
+    instance_id = aws_instance.green-beret.id
   }
 
   connection {
-    host        = "${aws_instance.green-beret.public_ip}"
+    host        = aws_instance.green-beret.public_ip
     type        = "ssh"
     user        = "ubuntu"
-    private_key = "${data.aws_secretsmanager_secret_version.private_key.secret_string}"
+    private_key = data.aws_secretsmanager_secret_version.private_key.secret_string
   }
 
   provisioner "file" {
@@ -91,5 +91,5 @@ resource "null_resource" "server_configuration" {
 }
 
 output "instance-id" {
-  value = "${aws_instance.green-beret.id}"
+  value = aws_instance.green-beret.id
 }
