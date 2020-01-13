@@ -21,4 +21,5 @@ GREEN_BERET_AWS_KEY_PAIR_NAME="xbrianh-green-beret"
 GREEN_BERET_AWS_KEY_PAIR_SECRET_ID="amorphous-industries/xbrianh/green-beret/aws-private-key"
 GREEN_BERET_INSTANCE_NAME="green-beret"
 GREEN_BERET_INFRA_TAGS='{"service": "green-beret", "owner": "brian.hannafious@gmail.com"}'
+AWS_SDK_LOAD_CONFIG=1 # Needed for Terraform to correctly use AWS assumed roles
 set +a
