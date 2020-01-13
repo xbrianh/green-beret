@@ -54,12 +54,11 @@ with open(os.path.join(path, "backend.tf"), "w") as fp:
         profile_setting = f'profile = "{profile}"'
     else:
         profile_setting = ''
-    state_bucket = f"terraform-{caller_info['Account']}-{os.environ['AWS_DEFAULT_REGION']}"
     fp.write(terraform_backend_template.format(
+        region=os.environ['AWS_DEFAULT_REGION'],
         bucket=os.environ['TERRAFORM_STATE_BUCKET'],
         prefix=os.environ['TERRAFORM_STATE_PREFIX'],
         comp=component,
-        region=os.environ['AWS_DEFAULT_REGION'],
         profile_setting=profile_setting,
     ))
 
