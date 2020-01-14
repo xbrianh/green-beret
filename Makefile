@@ -15,6 +15,12 @@ destroy: init
 aws:
 	$(MAKE) -C $(GREEN_BERET_HOME)/terraform apply COMPONENT=aws
 
+# Server configuration occasionally fails after instance creation (some services not available yet?)
+# This pattern forces re-configuration.
+configure-aws:
+	(cd $(GREEN_BERET_HOME)/terraform/aws && terraform taint null_resource.instance_config)
+	(cd $(GREEN_BERET_HOME)/terraform/aws && terraform apply -auto-approve -target null_resource.instance_config)
+
 destroy-aws:
 	$(MAKE) -C $(GREEN_BERET_HOME)/terraform destroy COMPONENT=aws
 

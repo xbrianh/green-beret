@@ -68,7 +68,7 @@ resource "aws_instance" "green-beret" {
   volume_tags     = local.instance_tags
 }
 
-resource "null_resource" "server_configuration" {
+resource "null_resource" "instance_config" {
   triggers = {
     instance_id = aws_instance.green-beret.id
   }
@@ -81,12 +81,23 @@ resource "null_resource" "server_configuration" {
   }
 
   provisioner "file" {
-    source      = "setup.sh"
+    source      = "../../instance_config/setup.sh"
     destination = "/tmp/setup.sh"
   }
 
+  provisioner "file" {
+    source      = "../../instance_config/bashrc"
+    destination = "/tmp/bashrc"
+  }
+
+  provisioner "file" {
+    source      = "../../instance_config/vimrc"
+    destination = "~/.vimrc"
+  }
+
   provisioner "remote-exec" {
-    inline = ["chmod +x /tmp/setup.sh && sudo /tmp/setup.sh"]
+    inline = ["chmod +x /tmp/setup.sh && /tmp/setup.sh",
+              "cat /tmp/bashrc >> ~/.bashrc"]
   }
 }
 
