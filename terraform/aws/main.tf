@@ -58,7 +58,7 @@ resource "aws_security_group" "green-beret" {
 
 resource "aws_instance" "green-beret" {
   ami             = data.aws_ami.ubuntu.id
-  instance_type   = "m5.large"
+  instance_type   = var.GREEN_BERET_AWS_INSTANCE_TYPE
   key_name        = var.GREEN_BERET_AWS_KEY_PAIR_NAME
   security_groups = [aws_security_group.green-beret.name]
   root_block_device {
