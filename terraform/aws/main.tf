@@ -62,7 +62,7 @@ resource "aws_instance" "green-beret" {
   key_name        = var.GREEN_BERET_AWS_KEY_PAIR_NAME
   security_groups = [aws_security_group.green-beret.name]
   root_block_device {
-    volume_size = 16
+    volume_size = 32
   }
   tags            = local.instance_tags
   volume_tags     = local.instance_tags
