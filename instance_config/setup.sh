@@ -29,6 +29,7 @@ git secrets --register-aws --global
 git secrets --install ~/.git-templates/git-secrets
 git secrets --add --global 'BEGINPRIVATEKEY.*ENDPRIVATEKEY' # google private key pattern
 git config --global init.templateDir ~/.git-templates/git-secrets
+git config --global credential.helper store
 wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
 mv git-completion.bash ~/.git-completion.bash
 echo "source ~/.git-completion.bash" >> ~/.bashrc
