@@ -12,12 +12,19 @@ function finish {
 }
 trap finish EXIT
 
-aws secretsmanager get-secret-value --secret-id ${GREEN_BERET_AWS_KEY_PAIR_SECRET_ID} | jq -r '.SecretString' > ${tmp_private_key}
-chmod go-r ${tmp_private_key}
-
-if [[ -e ${tmp_private_key} ]]; then
-    # ssh -i ${tmp_private_key} -o "UserKnownHostsFile /dev/null" -o "StrictHostKeyChecking no" -o "LogLevel ERROR" ubuntu@$GREEN_BERET_DNS
-    mosh --ssh="ssh -i ${tmp_private_key} -o \"UserKnownHostsFile /dev/null\" -o \"StrictHostKeyChecking no\" -o \"LogLevel ERROR\"" ubuntu@$GREEN_BERET_DNS
+if [[ "aws" == ${GREEN_BERET_PLATFORM} ]]; then
+    aws secretsmanager get-secret-value --secret-id ${GREEN_BERET_AWS_KEY_PAIR_SECRET_ID} | jq -r '.SecretString' > ${tmp_private_key}
+    chmod go-r ${tmp_private_key}
+    
+    if [[ -e ${tmp_private_key} ]]; then
+        # ssh -i ${tmp_private_key} -o "UserKnownHostsFile /dev/null" -o "StrictHostKeyChecking no" -o "LogLevel ERROR" ubuntu@$GREEN_BERET_DNS
+        mosh --ssh="ssh -i ${tmp_private_key} -o \"UserKnownHostsFile /dev/null\" -o \"StrictHostKeyChecking no\" -o \"LogLevel ERROR\"" ubuntu@$GREEN_BERET_DNS
+    else
+        echo "Unable to locate identity file"
+    fi
+elif [[ "gcp" == ${GREEN_BERET_PLATFORM} ]]; then
+    # ssh -i ${GREEN_BERET_GCP_PRIVATE_KEY_FILEPATH} -o "UserKnownHostsFile /dev/null" -o "StrictHostKeyChecking no" -o "LogLevel ERROR" ubuntu@${GREEN_BERET_DNS}
+    mosh --ssh="ssh -i ${GREEN_BERET_GCP_PRIVATE_KEY_FILEPATH} -o \"UserKnownHostsFile /dev/null\" -o \"StrictHostKeyChecking no\" -o \"LogLevel ERROR\"" ubuntu@${GREEN_BERET_DNS}
 else
-    echo "Unable to locate identity file"
+    echo "Unknown platform ${GREEN_BERET_PLATFORM}"
 fi

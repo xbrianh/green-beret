@@ -3,28 +3,22 @@ include common.mk
 all: apply
 
 init:
-	$(MAKE) -C $(GREEN_BERET_HOME)/terraform init-all
+	$(MAKE) -C $(GREEN_BERET_HOME)/terraform init COMPONENT=$(GREEN_BERET_PLATFORM)
 
 plan: init
-	$(MAKE) -C $(GREEN_BERET_HOME)/terraform plan-all
+	$(MAKE) -C $(GREEN_BERET_HOME)/terraform plan COMPONENT=$(GREEN_BERET_PLATFORM)
 
-apply: init
-	$(MAKE) -C $(GREEN_BERET_HOME)/terraform apply-all
+apply:
+	$(MAKE) -C $(GREEN_BERET_HOME)/terraform apply COMPONENT=$(GREEN_BERET_PLATFORM)
 
-destroy: init
-	$(MAKE) -C $(GREEN_BERET_HOME)/terraform destroy-all
-
-aws:
-	$(MAKE) -C $(GREEN_BERET_HOME)/terraform apply COMPONENT=aws
+destroy:
+	$(MAKE) -C $(GREEN_BERET_HOME)/terraform destroy COMPONENT=$(GREEN_BERET_PLATFORM)
 
 # Server configuration occasionally fails after instance creation (some services not available yet?)
-# This pattern forces re-configuration.
-configure-aws:
-	(cd $(GREEN_BERET_HOME)/terraform/aws && terraform taint null_resource.instance_config)
-	(cd $(GREEN_BERET_HOME)/terraform/aws && terraform apply -auto-approve -target null_resource.instance_config)
-
-destroy-aws:
-	$(MAKE) -C $(GREEN_BERET_HOME)/terraform destroy COMPONENT=aws
+# This pattern forces reconfiguration.
+reconfigure:
+	(cd $(GREEN_BERET_HOME)/terraform/$(GREEN_BERET_PLATFORM) && terraform taint null_resource.instance_config)
+	(cd $(GREEN_BERET_HOME)/terraform/$(GREEN_BERET_PLATFORM) && terraform apply -auto-approve -target null_resource.instance_config)
 
 clean:
 	$(MAKE) -C $(GREEN_BERET_HOME)/terraform clean-all

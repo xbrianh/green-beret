@@ -1,7 +1,15 @@
 #!/bin/bash
 set -euo pipefail
+
 sudo apt-get update
 sudo apt-get upgrade --assume-yes
+
+# avoid interactive installation for tzdata. This is a pain.
+sudo ln -fs /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+export DEBIAN_FRONTEND=noninteractive
+sudo apt-get install -y tzdata
+sudo dpkg-reconfigure --frontend noninteractive tzdata
+
 sudo apt-get install --assume-yes --no-install-recommends \
     build-essential \
     vim \
@@ -15,6 +23,7 @@ sudo apt-get install --assume-yes --no-install-recommends \
     unzip \
     wget \
     docker.io \
+    locales \
     mosh
 
 # configure docker
@@ -38,3 +47,6 @@ echo "source ~/.git-completion.bash" >> ~/.bashrc
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim-addons install python-jedi
 vim +PluginInstall +qall 2>&1 > /dev/null
+
+# configure locale for mosh
+sudo locale-gen "en_US.UTF-8"
