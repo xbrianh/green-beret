@@ -1,3 +1,5 @@
+include common.mk
+
 all: apply
 
 init:
