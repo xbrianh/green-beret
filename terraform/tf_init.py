@@ -98,7 +98,10 @@ with open(os.path.join(path, "variables.tf"), "w") as fp:
     fp.write("# Auto-generated during terraform build process." + os.linesep)
     fp.write("# Please edit terraform/build_deploy_config.py directly." + os.linesep)
     for key in os.environ['EXPORT_ENV_VARS_TO_TERRAFORM'].split():
-        val = os.environ[key].replace('"', '\\"')
+        val = os.environ.get(key)
+        if val is None:
+            continue
+        val = val.replace('"', '\\"')
         fp.write(terraform_variable_template.format(name=key, val=val))
         fp.write(os.linesep)
 

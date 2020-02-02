@@ -1,5 +1,9 @@
 set -a
+GREEN_BERET_PLATFORM="aws"
+AWS_DEFAULT_REGION="us-east-1"
+GREEN_BERET_INSTANCE_NAME="green-beret"
 TERRAFORM_STATE_BUCKET="bhannafi-861229788715-terraform"
+TERRAFORM_STATE_PREFIX="green-beret"
 GREEN_BERET_AWS_KEY_PAIR_NAME="bhannafi-green-beret"
 GREEN_BERET_AWS_KEY_PAIR_SECRET_ID="bhannafi/green-beret/aws-private-key"
 GREEN_BERET_INSTANCE_NAME="green-beret"
