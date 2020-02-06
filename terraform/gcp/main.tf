@@ -35,7 +35,7 @@ resource "google_compute_instance" "green-beret" {
 
   allow_stopping_for_update = true
 
-  depends_on = ["google_compute_firewall.ssh-mosh-server"]
+  depends_on = [google_compute_firewall.ssh-mosh-server]
 }
 
 resource "google_compute_firewall" "ssh-mosh-server" {
