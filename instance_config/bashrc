@@ -14,3 +14,29 @@ alias gstat='git status ; echo ; git log --pretty=oneline --color=always | head'
 alias ls='ls --color'
 source ~/.git-completion.bash
 complete -C '/usr/local/bin/aws_completer' aws
+
+export VIRTUAL_ENV_HOME="${HOME}/.virtualenvs"
+if [[ ! -d ${VIRTUAL_ENV_HOME} ]]; then
+    mkdir -p ${VIRTUAL_ENV_HOME}
+fi
+
+# simple python virtual environment management
+function vact() {
+    if [[ -z $1 ]]; then
+    	deactivate
+    else
+        vpath="${VIRTUAL_ENV_HOME}/${1}"
+        if [[ ! -d "${vpath}" ]]; then
+        	echo "No virtual environment named '$1'"
+        	while true; do
+            read -p "create? [Y/n] " yn
+            case $yn in
+            	[Yy]* ) python3 -m venv $vpath; break;;
+            	[Nn]* ) break;;
+            	* ) echo "yes or no goddamnit";;
+            esac
+        	done
+        fi
+        source "${vpath}/bin/activate"
+    fi
+}

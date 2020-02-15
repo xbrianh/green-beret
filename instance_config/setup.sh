@@ -36,19 +36,21 @@ sudo systemctl enable docker
 sudo chmod 666 /var/run/docker.sock
 
 # configure git
+rm -rf ${HOME}/.git-template
+rm -rf git-secrets
 git clone https://github.com/awslabs/git-secrets.git
 (cd git-secrets && sudo make install)
 git secrets --register-aws --global
-git secrets --install ~/.git-templates/git-secrets
 git secrets --add --global 'BEGINPRIVATEKEY.*ENDPRIVATEKEY' # google private key pattern
 git config --global init.templateDir ~/.git-templates/git-secrets
 git config --global credential.helper store
 wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
 mv git-completion.bash ~/.git-completion.bash
-echo "source ~/.git-completion.bash" >> ~/.bashrc
 
 # configure vim
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vundle_path="${HOME}/.vim/bundle/Vundle.vim"
+rm -rf $vundle_path
+git clone https://github.com/VundleVim/Vundle.vim.git $vundle_path
 vim-addons install python-jedi
 vim +PluginInstall +qall 2>&1 > /dev/null
 
