@@ -24,8 +24,9 @@ sudo apt-get install --assume-yes --no-install-recommends \
     wget \
     docker.io \
     locales \
-    python3-dev \
+    python3.8-dev \
     python3-venv \
+    python3.8-venv \
     screen \
     zlib1g-dev \
     mosh
