@@ -10,8 +10,21 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt-get install -y tzdata
 sudo dpkg-reconfigure --frontend noninteractive tzdata
 
+# base
 sudo apt-get install --assume-yes --no-install-recommends \
     build-essential \
+    locales \
+    zlib1g-dev \
+    mosh
+
+# python
+sudo apt-get install --assume-yes --no-install-recommends \
+    python3.8-dev \
+    python3-venv \
+    python3.8-venv
+
+# utilities
+sudo apt-get install --assume-yes --no-install-recommends \
     vim \
     vim-python-jedi \
     vim-addon-manager \
@@ -21,15 +34,14 @@ sudo apt-get install --assume-yes --no-install-recommends \
     jq \
     zip \
     unzip \
-    wget \
-    docker.io \
-    locales \
-    python3.8-dev \
-    python3-venv \
-    python3.8-venv \
     screen \
-    zlib1g-dev \
-    mosh
+    docker.io \
+    wget
+
+# htslib deps
+sudo apt-get install --assume-yes --no-install-recommends \
+    libbz2-dev \
+    liblzma-dev
 
 # configure docker
 sudo systemctl start docker
