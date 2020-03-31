@@ -23,19 +23,19 @@ fi
 # simple python virtual environment management
 function vact() {
     if [[ -z $1 ]]; then
-    	deactivate
+        deactivate
     else
         vpath="${VIRTUAL_ENV_HOME}/${1}"
         if [[ ! -d "${vpath}" ]]; then
-        	echo "No virtual environment named '$1'"
-        	while true; do
+            echo "No virtual environment named '$1'"
+            while true; do
             read -p "create? [Y/n] " yn
             case $yn in
-            	[Yy]* ) python3.8 -m venv $vpath; break;;
-            	[Nn]* ) break;;
-            	* ) echo "yes or no goddamnit";;
+                [Yy]* ) python3.7 -m venv $vpath; break;;
+                [Nn]* ) break;;
+                * ) echo "yes or no goddamnit";;
             esac
-        	done
+            done
         fi
         source "${vpath}/bin/activate"
     fi

@@ -19,9 +19,9 @@ sudo apt-get install --assume-yes --no-install-recommends \
 
 # python
 sudo apt-get install --assume-yes --no-install-recommends \
-    python3.8-dev \
+    python3.7-dev \
     python3-venv \
-    python3.8-venv
+    python3.7-venv
 
 # utilities
 sudo apt-get install --assume-yes --no-install-recommends \
