@@ -66,6 +66,8 @@ output "instance-ip" {
 }
 
 resource "null_resource" "instance_config" {
+  for_each = "${var.GREEN_BERET_RUN_INSTANCE_SETUP}" == "true" ? {"foo": "bar"} : {}
+
   triggers = {
     instance_id = google_compute_instance.green-beret.instance_id
   }

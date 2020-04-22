@@ -40,6 +40,7 @@ sudo apt-get install --assume-yes --no-install-recommends \
 
 # htslib deps
 sudo apt-get install --assume-yes --no-install-recommends \
+    libcurl4-openssl-dev \
     libbz2-dev \
     liblzma-dev
 
