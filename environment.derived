@@ -3,7 +3,7 @@ GREEN_BERET_INSTANCE_ID=$(cd ${GREEN_BERET_HOME}/terraform/${GREEN_BERET_PLATFOR
 if [[ "aws" == ${GREEN_BERET_PLATFORM} ]]; then
     GREEN_BERET_DNS=$(aws ec2 describe-instances --instance-ids $GREEN_BERET_INSTANCE_ID | jq -r '.Reservations[0].Instances[0].PublicDnsName')
 elif [[ "gcp" == ${GREEN_BERET_PLATFORM} ]]; then
-    GREEN_BERET_DNS=$(gcloud compute instances describe ${GREEN_BERET_INSTANCE_NAME} --zone ${GREEN_BERET_GCP_ZONE} --format json | jq -r .networkInterfaces[0].accessConfigs[0].natIP)
+    GREEN_BERET_DNS=$(gcloud compute instances describe ${GREEN_BERET_INSTANCE_NAME} --zone ${GREEN_BERET_GCP_ZONE} --format json | jq -r '.networkInterfaces[0].accessConfigs[0].natIP')
 else
     echo "Unknown platform ${GREEN_BERET_PLATFORM}"
 fi
