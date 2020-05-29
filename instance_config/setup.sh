@@ -70,3 +70,6 @@ vim +PluginInstall +qall 2>&1 > /dev/null
 
 # configure locale for mosh
 sudo locale-gen "en_US.UTF-8"
+
+# Make docker available to users:
+sudo chmod 666 /var/run/docker.sock
