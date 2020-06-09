@@ -56,16 +56,43 @@ resource "aws_security_group" "green-beret" {
   tags = local.tags
 }
 
+data "aws_iam_policy_document" "green-beret" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "green-beret" {
+  name               = var.GREEN_BERET_INSTANCE_NAME
+  assume_role_policy = data.aws_iam_policy_document.green-beret.json
+  tags               = local.tags
+}
+
+resource "aws_iam_role_policy_attachment" "node_power_user" {
+  policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
+  role       = aws_iam_role.green-beret.name
+}
+
+resource "aws_iam_instance_profile" "green-beret" {
+  name = var.GREEN_BERET_INSTANCE_NAME
+  role = aws_iam_role.green-beret.name
+}
+
 resource "aws_instance" "green-beret" {
-  ami             = data.aws_ami.ubuntu.id
-  instance_type   = var.GREEN_BERET_AWS_INSTANCE_TYPE
-  key_name        = var.GREEN_BERET_AWS_KEY_PAIR_NAME
-  security_groups = [aws_security_group.green-beret.name]
+  ami                  = data.aws_ami.ubuntu.id
+  instance_type        = var.GREEN_BERET_AWS_INSTANCE_TYPE
+  key_name             = var.GREEN_BERET_AWS_KEY_PAIR_NAME
+  iam_instance_profile = aws_iam_instance_profile.green-beret.name
+  security_groups      = [aws_security_group.green-beret.name]
   root_block_device {
     volume_size = 32
   }
-  tags            = local.instance_tags
-  volume_tags     = local.instance_tags
+  tags                 = local.instance_tags
+  volume_tags          = local.instance_tags
 }
 
 resource "null_resource" "instance_config" {
