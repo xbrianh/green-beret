@@ -2,6 +2,6 @@
 [user]
 # Please adapt and uncomment the following lines:
 	name = Brian Hannafious
-	email = brian@connectedsignals.com
+	email = bhannafi@ucsc.edu
 [core]
 	editor = /usr/bin/vim
