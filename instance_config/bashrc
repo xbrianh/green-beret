@@ -38,5 +38,6 @@ function vact() {
             done
         fi
         source "${vpath}/bin/activate"
+        pip install wheel
     fi
 }
