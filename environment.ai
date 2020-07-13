@@ -1,3 +1,4 @@
+source environment
 set -a
 GREEN_BERET_PLATFORM="aws"
 AWS_DEFAULT_REGION="us-east-1"

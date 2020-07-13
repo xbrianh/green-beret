@@ -2,7 +2,7 @@
 set -euo pipefail
 
 sudo apt-get update
-sudo apt-get upgrade --assume-yes
+sudo apt-get dist-upgrade --assume-yes
 
 # avoid interactive installation for tzdata. This is a pain.
 sudo ln -fs /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
@@ -36,6 +36,7 @@ sudo apt-get install --assume-yes --no-install-recommends \
     unzip \
     screen \
     docker.io \
+	moreutils \
     wget
 
 # htslib deps
