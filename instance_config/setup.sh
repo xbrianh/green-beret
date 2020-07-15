@@ -43,7 +43,8 @@ sudo apt-get install --assume-yes --no-install-recommends \
 sudo apt-get install --assume-yes --no-install-recommends \
     libcurl4-openssl-dev \
     libbz2-dev \
-    liblzma-dev
+    liblzma-dev \
+	libncurses5-dev
 
 # configure docker
 sudo systemctl start docker
