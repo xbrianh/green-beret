@@ -9,4 +9,5 @@ GREEN_BERET_AWS_KEY_PAIR_NAME="bhannafi-green-beret"
 GREEN_BERET_AWS_KEY_PAIR_SECRET_ID="hpp/bhannafi/green-beret/aws-private-key"
 GREEN_BERET_AWS_INSTANCE_TYPE="m5.large"
 GREEN_BERET_INFRA_TAGS='{"service": "green-beret", "Owner": "bhannafi@ucsc.edu"}'
+source ${GREEN_BERET_HOME}/scripts/generate_aws_sts_session.sh
 set +a
