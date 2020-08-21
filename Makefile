@@ -21,6 +21,6 @@ reconfigure:
 	(cd $(GREEN_BERET_HOME)/terraform/$(GREEN_BERET_PLATFORM) && terraform apply -auto-approve -target null_resource.instance_config)
 
 clean:
-	$(MAKE) -C $(GREEN_BERET_HOME)/terraform clean-all
+	git clean -dfx
 
 .PHONY: all init plan apply destroy aws destroy-aws clean
