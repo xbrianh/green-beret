@@ -13,6 +13,6 @@ $(error Please run make commands from a Python 3.8 virtualenv)
 endif
 
 ifeq ($(findstring terraform, $(shell which terraform 2>&1)),)
-else ifeq ($(findstring Terraform v0.12.24, $(shell terraform --version 2>&1)),)
-$(error You must use Terraform v0.12.24, please check your terraform version.)
+else ifeq ($(findstring Terraform v0.13.0, $(shell terraform --version 2>&1)),)
+$(error You must use Terraform v0.13.0, please check your terraform version.)
 endif
