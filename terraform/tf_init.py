@@ -26,7 +26,7 @@ terraform_variable_template = """
 
 terraform_s3_backend_template = """
 # Auto-generated during terraform build process.
-# Please edit terraform/build_deploy_config.py directly.
+# Please edit terraform/tf_init.py directly.
 terraform {{
   backend "s3" {{
     bucket = "{bucket}"
@@ -39,7 +39,7 @@ terraform {{
 
 terraform_gs_backend_template = """
 # Auto-generated during terraform build process.
-# Please edit terraform/build_deploy_config.py directly.
+# Please edit terraform/tf_init.py directly.
 terraform {{
   backend "gcs" {{
     bucket = "{bucket}"
@@ -51,7 +51,7 @@ terraform {{
 if "aws" == platform:
     terraform_providers = f"""
         # Auto-generated during terraform build process.
-        # Please edit terraform/build_deploy_config.py directly.
+        # Please edit terraform/tf_init.py directly.
         provider aws {{
           region = "{os.environ['AWS_DEFAULT_REGION']}"
         }}
@@ -61,7 +61,7 @@ elif "gcp" == platform:
     gcp_project_id = Client().project
     terraform_providers = f"""
         # Auto-generated during terraform build process.
-        # Please edit terraform/build_deploy_config.py directly.
+        # Please edit terraform/tf_init.py directly.
         provider google {{
           project = "{gcp_project_id}"
         }}
@@ -96,7 +96,7 @@ with open(os.path.join(path, "backend.tf"), "w") as fp:
 
 with open(os.path.join(path, "variables.tf"), "w") as fp:
     fp.write("# Auto-generated during terraform build process." + os.linesep)
-    fp.write("# Please edit terraform/build_deploy_config.py directly." + os.linesep)
+    fp.write("# Please edit terraform/tf_init.py directly." + os.linesep)
     for key in os.environ['EXPORT_ENV_VARS_TO_TERRAFORM'].split():
         val = os.environ.get(key)
         if val is None:
