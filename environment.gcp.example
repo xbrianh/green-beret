@@ -1,0 +1,18 @@
+source environment
+set -a
+GREEN_BERET_PLATFORM="gcp"
+
+# These can probably be left default, but you may want to choose regions and zones hosting your data
+GCP_DEFAULT_REGION="us-central1"
+GREEN_BERET_GCP_ZONE="us-central1-a"
+
+GREEN_BERET_GCP_PUBLIC_KEY_FILEPATH="~/.ssh/ucsc-gcp-production-google-compute-engine.pub"
+GREEN_BERET_GCP_PRIVATE_KEY_FILEPATH="~/.ssh/ucsc-gcp-production-google-compute-engine"
+
+GREEN_BERET_INSTANCE_NAME=  # name of your instance
+TERRAFORM_STATE_BUCKET=  # terraform state bucket name (you need to create this bucket)
+GREEN_BERET_GCP_INSTANCE_TYPE="n1-standard-8"
+GREEN_BERET_GCP_BOOT_DISK_IMAGE="ubuntu-minimal-1910-eoan-v20200129" 
+j
+GREEN_BERET_INFRA_TAGS='{"service": "green-beret", "owner": "identifying string (not an email!)"}'
+set +a

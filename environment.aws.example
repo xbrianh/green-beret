@@ -1,0 +1,11 @@
+source environment
+set -a
+GREEN_BERET_PLATFORM="aws"
+AWS_DEFAULT_REGION="us-east-1"  # Usually a good idea to choose the region hosting  your data
+GREEN_BERET_INSTANCE_NAME=  # name of your instance
+TERRAFORM_STATE_BUCKET=  # terraform state bucket name (you need to create this bucket)
+GREEN_BERET_AWS_KEY_PAIR_NAME=  # Name of key pair (you can make something up)
+GREEN_BERET_AWS_KEY_PAIR_SECRET_ID=  # "ucsc/my-nickname/green-beret/aws-private-key"
+GREEN_BERET_AWS_INSTANCE_TYPE="m5.large"
+GREEN_BERET_INFRA_TAGS='{"service": "green-beret", "owner": "YOUR INSTITUTIONAL EMAIL HERE"}'
+set +a
