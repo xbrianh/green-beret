@@ -17,7 +17,7 @@ destroy:
 # Server configuration occasionally fails after instance creation (some services not available yet?)
 # This pattern forces reconfiguration.
 reconfigure:
-	(cd $(GREEN_BERET_HOME)/terraform/$(GREEN_BERET_PLATFORM) && terraform taint null_resource.instance_config)
+	(cd $(GREEN_BERET_HOME)/terraform/$(GREEN_BERET_PLATFORM) && terraform state rm null_resource.instance_config)
 	(cd $(GREEN_BERET_HOME)/terraform/$(GREEN_BERET_PLATFORM) && terraform apply -auto-approve -target null_resource.instance_config)
 
 clean:
