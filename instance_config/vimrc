@@ -53,6 +53,9 @@ set whichwrap=<,>
 set nowritebackup
 set undolevels=10000
 "set cpoptions=aABceuFs
+" Folding enable/disable with `zi` in normal mode
+set foldmethod=indent
+set nofoldenable
 
 syntax on
 set hlsearch
