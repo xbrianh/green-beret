@@ -122,6 +122,11 @@ resource "null_resource" "instance_config" {
     destination = "~/.vimrc"
   }
 
+  provisioner "file" {
+    source      = "../../instance_config/gitconfig"
+    destination = "~/.gitconfig"
+  }
+
   provisioner "remote-exec" {
     inline = ["chmod +x /tmp/setup.sh && /tmp/setup.sh",
               "cat /tmp/bashrc >> ~/.bashrc"]
