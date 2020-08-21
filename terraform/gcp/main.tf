@@ -1,6 +1,6 @@
 
 locals {
-  tags = split(",", var.GREEN_BERET_GCP_TAGS)
+  tags = values(jsondecode(var.GREEN_BERET_INFRA_TAGS))
 }
 
 resource "google_compute_instance" "green-beret" {
@@ -22,11 +22,6 @@ resource "google_compute_instance" "green-beret" {
     access_config {
       // Ephemeral IP
     }
-  }
-
-  service_account {
-    email  = var.GREEN_BERET_GCP_SERVICE_ACCOUNT
-    scopes = split(",", var.GREEN_BERET_GCP_SERVICE_ACCOUNT_SCOPES)
   }
 
   metadata = {
