@@ -2,7 +2,6 @@
 set -euo pipefail
 
 sudo apt-get update
-sudo apt-get dist-upgrade --assume-yes
 
 # avoid interactive installation for tzdata. This is a pain.
 sudo ln -fs /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
