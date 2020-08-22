@@ -76,16 +76,14 @@ with open(os.path.join(path, "backend.tf"), "w") as fp:
             profile_setting = f'profile = "{profile}"'
         else:
             profile_setting = ""
-        region = os.environ['AWS_DEFAULT_REGION']
         backend_data = terraform_s3_backend_template.format(
-            region=region,
+            region=os.environ['AWS_DEFAULT_REGION'],
             bucket=os.environ['TERRAFORM_STATE_BUCKET'],
             key=f"{os.environ['TERRAFORM_STATE_PREFIX']}/{component}.tfstate",
             profile_setting=profile_setting,
         )
     elif "gcp" == platform:
         profile_setting = ""
-        region = os.environ['GCP_DEFAULT_REGION']
         backend_data = terraform_gs_backend_template.format(
             bucket=os.environ['TERRAFORM_STATE_BUCKET'],
             prefix=f"{os.environ['TERRAFORM_STATE_PREFIX']}/{component}",
