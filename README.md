@@ -10,6 +10,7 @@ following features:
 
 ## Requirements
 
+- [Mosh](https://mosh.org/)
 - [Python 3.8](https://www.python.org/downloads/)
 - [Terraform v0.13.0](https://www.terraform.io/downloads.html)
 - [jq](https://stedolan.github.io/jq/download/)
