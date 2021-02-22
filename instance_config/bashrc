@@ -31,7 +31,7 @@ function vact() {
             while true; do
             read -p "create? [Y/n] " yn
             case $yn in
-                [Yy]* ) python3.7 -m venv $vpath; break;;
+                [Yy]* ) python3.8 -m venv $vpath; break;;
                 [Nn]* ) break;;
                 * ) echo "yes or no goddamnit";;
             esac

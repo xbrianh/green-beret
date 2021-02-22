@@ -12,7 +12,7 @@ GREEN_BERET_GCP_PRIVATE_KEY_FILEPATH="~/.ssh/ucsc-gcp-production-google-compute-
 GREEN_BERET_INSTANCE_NAME=  # name of your instance
 TERRAFORM_STATE_BUCKET=  # terraform state bucket name (you need to create this bucket)
 GREEN_BERET_GCP_INSTANCE_TYPE="n1-standard-8"
-GREEN_BERET_GCP_BOOT_DISK_IMAGE="ubuntu-minimal-1910-eoan-v20200129" 
+GREEN_BERET_GCP_BOOT_DISK_IMAGE="ubuntu-minimal-2010-groovy-v20201210"
 j
 GREEN_BERET_INFRA_TAGS='{"service": "green-beret", "owner": "identifying string (not an email!)"}'
 set +a
