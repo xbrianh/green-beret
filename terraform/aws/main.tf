@@ -9,7 +9,7 @@ data "aws_ami" "ubuntu" {
   most_recent = true
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-eoan-19.10-*"]
+    values = [var.GREEN_BERET_AWS_AMI]
   }
   filter {
     name   = "architecture"

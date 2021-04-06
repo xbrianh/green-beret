@@ -7,5 +7,6 @@ TERRAFORM_STATE_BUCKET=  # terraform state bucket name (you need to create this 
 GREEN_BERET_AWS_KEY_PAIR_NAME=  # Name of key pair (you can make something up)
 GREEN_BERET_AWS_KEY_PAIR_SECRET_ID=  # "ucsc/my-nickname/green-beret/aws-private-key"
 GREEN_BERET_AWS_INSTANCE_TYPE="m5.large"
+GREEN_BERET_AWS_AMI=  # AWS AMI name query: "ubuntu/images/hvm-ssd/ubuntu-groovy-20.10-*"
 GREEN_BERET_INFRA_TAGS='{"service": "green-beret", "owner": "YOUR INSTITUTIONAL EMAIL HERE"}'
 set +a
