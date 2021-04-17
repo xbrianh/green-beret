@@ -1,8 +1,8 @@
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()                                                                                                                        
-" Plugin 'VundleVim/Vundle.vim'                                                                                                              
-" Plugin 'davidhalter/jedi-vim'
+Plugin 'VundleVim/Vundle.vim'                                                                                                              
+Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/supertab'                                                                                                                 
 " " Brief help                                                                                                                               
 " " " :PluginList       - lists configured plugins                                                                                           

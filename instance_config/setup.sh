@@ -25,7 +25,6 @@ sudo apt-get install --assume-yes --no-install-recommends \
 # utilities
 sudo apt-get install --assume-yes --no-install-recommends \
     vim \
-    vim-python-jedi \
     vim-addon-manager \
     bash-completion \
     git \
@@ -66,7 +65,6 @@ mv git-completion.bash ~/.git-completion.bash
 vundle_path="${HOME}/.vim/bundle/Vundle.vim"
 rm -rf $vundle_path
 git clone https://github.com/VundleVim/Vundle.vim.git $vundle_path
-vim-addons install python-jedi
 vim +PluginInstall +qall 2>&1 > /dev/null
 
 # configure locale for mosh
